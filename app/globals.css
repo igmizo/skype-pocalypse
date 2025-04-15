@@ -1,26 +1,229 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background-start: #58a5f0;
+  --background-end: #bf9fee;
+  --text-color: #000000;
+  --blink-speed: 0.7s;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Base styles */
+body {
+  cursor: url("/images/clippy-cursor.png"), auto;
+  overflow-x: hidden;
+  font-family: "Comic Neue", "Comic Sans MS", cursive, sans-serif;
+  animation: backgroundPulse 10s infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Marquee animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.animate-marquee {
+  display: inline-block;
+  animation: marquee 15s linear infinite;
+}
+
+/* Page shake animation */
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-10px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(10px);
+  }
+}
+
+.animate-shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* Blinking text */
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink var(--blink-speed) infinite;
+}
+
+/* Slow spin animation */
+@keyframes spinSlow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 10s linear infinite;
+}
+
+/* Neon text effect */
+.shadow-neon {
+  text-shadow: 0 0 5px #ff00dd, 0 0 10px #ff00dd, 0 0 20px #ff00dd;
+}
+
+/* Pulsing animation */
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Background color pulse */
+@keyframes backgroundPulse {
+  0%,
+  100% {
+    background-color: #58a5f0;
+  }
+  50% {
+    background-color: #bf9fee;
+  }
+}
+
+/* Cursor trail effect */
+.cursor-trail {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #ff00dd;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.7;
+  z-index: 9999;
+  animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+/* Noise background */
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Custom fonts */
+.font-comic-sans {
+  font-family: "Comic Neue", "Comic Sans MS", cursive, sans-serif;
+}
+
+.font-papyrus {
+  font-family: "Papyrus", fantasy;
+}
+
+.font-impact {
+  font-family: "Impact", sans-serif;
+}
+
+/* Custom UI elements */
+.retro-button {
+  background: linear-gradient(to bottom, #ffcc00, #ff9900);
+  border: 3px outset #ffcc00;
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 10px 20px;
+  color: #990000;
+  text-shadow: 1px 1px 0 #ffffff;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  transform: perspective(10px) rotateX(2deg);
+  transition: all 0.1s;
+}
+
+.retro-button:active {
+  border-style: inset;
+  transform: perspective(10px) rotateX(2deg) translateY(2px);
+}
+
+/* Windows XP style window */
+.window-xp {
+  background: linear-gradient(to bottom, #0058b7, #2683e7);
+  border: 2px solid #0058b7;
+  border-radius: 8px 8px 0 0;
+  color: white;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+
+.window-xp-content {
+  background-color: #ece9d8;
+  border: 2px solid #0058b7;
+  border-top: none;
+  padding: 10px;
+}
+
+/* Windows 95/98 error window */
+.error-window {
+  background-color: #c0c0c0;
+  border: 2px outset #ffffff;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.error-title {
+  background: linear-gradient(to right, #000080, #1084d0);
+  color: white;
+  font-weight: bold;
+  padding: 2px 5px;
+}
+
+.error-content {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+/* Geocities-style dividers */
+.geocities-divider {
+  height: 20px;
+  background: repeating-linear-gradient(
+    45deg,
+    #ff0000,
+    #ff0000 10px,
+    #ffff00 10px,
+    #ffff00 20px
+  );
+  margin: 20px 0;
+  border: 2px ridge #ffffff;
 }
